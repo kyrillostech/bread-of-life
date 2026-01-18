@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ختمة الكتاب المقدس - خبزنا اليومي</title>
+
+    <!-- Fonts: Authentic Coptic-style look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Use 'Amiri' for Quranic/Bible classical Arabic look or 'Cairo' again. 'Amiri' is very majestic and biblical. -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Onboarding / Settings Modal -->
+    <div id="setup-modal" class="modal active">
+        <div class="modal-content glass-monastic">
+            <div class="modal-header">
+                <i class="fa-solid fa-scroll logo-icon"></i>
+                <h1>رحلة الكتاب المقدس</h1>
+                <p>اختر خطة القراءة المناسبة لك</p>
+            </div>
+
+            <div class="plan-options">
+                <label class="plan-card">
+                    <input type="radio" name="plan" value="1" checked>
+                    <div class="plan-visual">
+                        <i class="fa-solid fa-calendar-day"></i>
+                    </div>
+                    <div class="plan-details">
+                        <h3>عام واحد</h3>
+                        <p>حوالي 3-4 إصحاحات يومياً</p>
+                    </div>
+                </label>
+
+                <label class="plan-card">
+                    <input type="radio" name="plan" value="2">
+                    <div class="plan-visual">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <div class="plan-details">
+                        <h3>عامين</h3>
+                        <p>حوالي 1-2 إصحاح يومياً</p>
+                    </div>
+                </label>
+            </div>
+
+            <button id="start-journey" class="gold-btn">ابــــدأ الرحلــــة</button>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-wrapper">
+        <header class="top-bar">
+            <div class="logo">
+                <i class="fa-solid fa-cross"></i>
+                <span>خبز الحياة</span>
+            </div>
+            <div class="progress-badge">
+                <div class="streak-container" id="streak-display" style="display:none;">
+                    <i class="fa-solid fa-fire"></i> <span id="streak-count">0</span> يوم
+                </div>
+                <span id="plan-text">خطة عام</span>
+                <div class="progress-bar">
+
+                    <div class="fill" id="total-progress"></div>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero-date">
+            <h2 id="time-greeting">مرحباً</h2> <!-- Greeting -->
+            <div class="date-container">
+
+                <p id="current-date-text" class="gregorian-date">...</p>
+                <span class="date-separator">|</span>
+                <p id="coptic-date-text" class="coptic-date">...</p>
+            </div>
+        </section>
+
+        <!-- Daily Quote -->
+        <section class="daily-quote-container">
+            <div class="quote-card glass-monastic">
+                <i class="fa-solid fa-quote-right quote-icon"></i>
+                <blockquote id="daily-quote-text">...</blockquote>
+                <cite id="daily-quote-author">...</cite>
+                <i class="fa-solid fa-cross quote-decoration"></i>
+            </div>
+        </section>
+
+        <main class="daily-readings">
+
+
+            <!-- Morning -->
+            <article class="session-card" id="session-morning">
+                <div class="session-icon"><i class="fa-regular fa-sun"></i></div>
+                <div class="session-content">
+                    <h3>باكر</h3>
+                    <p class="reading-ref">...</p>
+                    <button class="read-btn" onclick="openReading('morning')">اقرأ الآن</button>
+                </div>
+                <div class="status-marker"><i class="fa-regular fa-circle-check"></i></div>
+            </article>
+
+            <!-- Noon -->
+            <article class="session-card" id="session-noon">
+                <div class="session-icon"><i class="fa-solid fa-cloud-sun"></i></div>
+                <div class="session-content">
+                    <h3>الظهيرة</h3>
+                    <p class="reading-ref">...</p>
+                    <button class="read-btn" onclick="openReading('noon')">اقرأ الآن</button>
+                </div>
+                <div class="status-marker"><i class="fa-regular fa-circle-check"></i></div>
+            </article>
+
+            <!-- Evening -->
+            <article class="session-card" id="session-evening">
+                <div class="session-icon"><i class="fa-solid fa-moon"></i></div>
+                <div class="session-content">
+                    <h3>المساء</h3>
+                    <p class="reading-ref">...</p>
+                    <button class="read-btn" onclick="openReading('evening')">اقرأ الآن</button>
+                </div>
+                <div class="status-marker"><i class="fa-regular fa-circle-check"></i></div>
+            </article>
+
+        </main>
+    </div>
+
+    <footer class="app-footer">
+        <p>Made with ❤️ by <a href="https://eg.linkedin.com/in/kyrillosemad" target="_blank" class="author-link">Eng.
+                Kyrillos Emad</a></p>
+    </footer>
+
+    <!-- Reading View Overlay -->
+
+    <div id="reading-overlay" class="reading-view">
+        <div class="reading-header">
+            <button class="back-btn" onclick="closeReading()"><i class="fa-solid fa-arrow-right"></i></button>
+            <h2 id="reading-title">...</h2>
+            <button class="font-btn"><i class="fa-solid fa-font"></i></button>
+        </div>
+
+        <div class="reading-paper">
+            <div id="reading-text" class="scripture-text">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <div class="reading-actions">
+            <button class="finish-btn" onclick="completeSession()">تمت القراءة <i
+                    class="fa-solid fa-check"></i></button>
+        </div>
+    </div>
+
+    <!-- Background Pattern -->
+    <div class="bg-pattern"></div>
+
+    <script src="quotes.js"></script>
+    <script src="bible-content.js"></script>
+    <script src="bible-data.js"></script>
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>

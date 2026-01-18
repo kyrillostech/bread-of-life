@@ -1,0 +1,576 @@
+/* Theme: Coptic Monastic Gold */
+:root {
+    --bg-dark: #12100e;
+    /* Very dark brown/black */
+    --paper-texture: #fdf6e3;
+    /* For reading view */
+    --gold: #c6a868;
+    --gold-bright: #eecf87;
+    --deep-red: #5a1a1a;
+    --text-primary: #f0e6d2;
+    --text-muted: #a8a090;
+
+    --font-title: 'Amiri', serif;
+    --font-ui: 'Cairo', sans-serif;
+
+    --card-bg: rgba(30, 25, 20, 0.85);
+    --border-style: 1px solid rgba(198, 168, 104, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: var(--font-ui);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Background Pattern */
+.bg-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.25;
+    /* Subtle blend with dark bg */
+    z-index: -1;
+    filter: sepia(0.4) contrast(1.1);
+}
+
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.glass-monastic {
+    background: linear-gradient(145deg, rgba(30, 25, 20, 0.95), rgba(45, 35, 25, 0.95));
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(198, 168, 104, 0.2);
+    position: relative;
+}
+
+/* Decorative Corners for Modal */
+.glass-monastic::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 1px solid var(--gold);
+    border-radius: 14px;
+    pointer-events: none;
+}
+
+.modal-header h1 {
+    font-family: var(--font-title);
+    color: var(--gold-bright);
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.logo-icon {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.plan-options {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.plan-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(198, 168, 104, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+}
+
+.plan-card:hover {
+    border-color: var(--gold);
+    background: rgba(198, 168, 104, 0.1);
+}
+
+.plan-card input {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.plan-card input:checked+.plan-visual {
+    color: var(--gold-bright);
+}
+
+.plan-card input:checked~.plan-details h3 {
+    color: var(--gold-bright);
+}
+
+/* When selected, highlight border */
+.plan-card:has(input:checked) {
+    border-color: var(--gold-bright);
+    background: rgba(198, 168, 104, 0.15);
+    transform: translateY(-5px);
+}
+
+.plan-visual {
+    font-size: 2rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.plan-details h3 {
+    font-family: var(--font-title);
+}
+
+.gold-btn {
+    background: linear-gradient(to bottom, var(--gold-bright), var(--gold));
+    color: #000;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-family: var(--font-title);
+    transition: 0.3s;
+}
+
+.gold-btn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 15px rgba(198, 168, 104, 0.4);
+}
+
+/* App Header */
+.top-bar {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border-style);
+    background: rgba(18, 16, 14, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gold);
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.progress-badge {
+    text-align: left;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.streak-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(220, 38, 38, 0.2);
+    /* Red tint for fire */
+    color: #fca5a5;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    border: 1px solid rgba(220, 38, 38, 0.4);
+}
+
+.streak-container i {
+    color: #ff4d4d;
+    animation: pulse-fire 2s infinite;
+}
+
+@keyframes pulse-fire {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+.progress-bar {
+
+    width: 100px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.progress-bar .fill {
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    /* JS will set this */
+    transition: 0.5s;
+}
+
+.hero-date {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.hero-date h2 {
+    font-family: var(--font-title);
+    font-size: 2.2rem;
+    color: var(--gold-bright);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Daily Readings */
+.daily-readings {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.session-card {
+    background: var(--card-bg);
+    border: var(--border-style);
+    border-right: 4px solid var(--gold);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.session-card:hover {
+    background: rgba(45, 40, 35, 0.9);
+}
+
+.session-icon {
+    font-size: 2rem;
+    color: var(--gold);
+    opacity: 0.8;
+}
+
+.session-content {
+    flex: 1;
+}
+
+.session-content h3 {
+    font-family: var(--font-title);
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+    font-size: 1.4rem;
+}
+
+.reading-ref {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.read-btn {
+    background: transparent;
+    border: 1px solid var(--text-muted);
+    color: var(--text-primary);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    transition: 0.2s;
+}
+
+.read-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.status-marker {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.1);
+}
+
+/* Completed State */
+.session-card.completed .status-marker {
+    color: #4ade80;
+    /* Green */
+}
+
+.session-card.completed {
+    opacity: 0.7;
+}
+
+/* Reading View Overlay */
+.reading-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+}
+
+.reading-view.active {
+    display: flex;
+}
+
+.reading-header {
+    background: rgba(18, 16, 14, 0.98);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border-style);
+}
+
+.reading-header h2 {
+    font-family: var(--font-title);
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+
+.back-btn,
+.font-btn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.reading-paper {
+    flex: 1;
+    background: var(--paper-texture);
+    color: #333;
+    /* Dark text on light paper */
+    padding: 2rem 1rem;
+    overflow-y: auto;
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    line-height: 2.2;
+    text-align: center;
+    /* Per user preference from previous request */
+}
+
+.scripture-text {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.scripture-text h3 {
+    color: var(--deep-red);
+    margin: 2rem 0 1rem;
+    font-size: 1.6rem;
+}
+
+.verse-num {
+    color: var(--deep-red);
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.reading-actions {
+    background: var(--paper-texture);
+    padding: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+}
+
+.finish-btn {
+    background: var(--deep-red);
+    color: white;
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 4px;
+    font-family: var(--font-ui);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--deep-red);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .reading-paper {
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .plan-options {
+        flex-direction: column;
+    }
+}
+
+/* --- Date Container --- */
+.date-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+    font-family: 'Cairo', sans-serif;
+    color: var(--text-light);
+}
+
+.coptic-date {
+    color: var(--gold);
+    font-weight: bold;
+}
+
+.date-separator {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+/* --- Quote Card --- */
+.daily-quote-container {
+    padding: 1.5rem 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.quote-card {
+    position: relative;
+    max-width: 600px;
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(198, 168, 104, 0.3);
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.7), rgba(10, 10, 10, 0.8));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.quote-icon {
+    font-size: 1.5rem;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.quote-card blockquote {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+    margin: 0 0 1rem 0;
+}
+
+.quote-card cite {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--gold-bright);
+    font-style: normal;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.quote-decoration {
+    margin-top: 1.5rem;
+    color: var(--gold);
+    font-size: 0.8rem;
+    opacity: 0.4;
+}
+
+/* Footer */
+.app-footer {
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    font-family: 'Cairo', sans-serif;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 10;
+}
+
+.author-link {
+    color: var(--gold-bright);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.author-link:hover {
+    color: #fff;
+    text-shadow: 0 0 5px var(--gold-bright);
+}
